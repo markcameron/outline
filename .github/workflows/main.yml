@@ -1,0 +1,22 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  dockerize:
+    name: Dockerize and push to Docker Hub
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Dockerize
+      run: docker build -t ${{ github.repository }}:latest .
+    - name: Log in to registry
+      run: echo ${{ secrets.DOCKER_HUB_PASSWORD }} | docker login -u markcameron --password-stdin docker.io
+    - name: Push the latest Docker image
+      if: success()
+      run: |
+        docker push ${{ github.repository }}:latest
