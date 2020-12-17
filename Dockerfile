@@ -1,4 +1,4 @@
-FROM outlinewiki/outline:version-0.43.2
+FROM outlinewiki/outline:version-0.51.0
 
 ENV APP_PATH /opt/outline
 WORKDIR $APP_PATH
